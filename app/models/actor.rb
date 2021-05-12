@@ -19,21 +19,22 @@ class Actor < ApplicationRecord
   #  return matching_characters
   #end
 
-  def filmography
-    array_of_movie_ids = Array.new
-
-    my_characters = self.characters
-
-    my_characters.each do |a_character|
-      the_movie = a_character.movie
-
-      array_of_movie_ids.push(the_movie.id)
-    end
-
-    matching_movies = Movie.where({ :id => array_of_movie_ids })
-
-    return matching_movies
-  end
+  #def filmography
+  #  array_of_movie_ids = Array.new
+  #
+  #  my_characters = self.characters
+  #
+  #  my_characters.each do |a_character|
+  #    the_movie = a_character.movie
+  #
+  #    array_of_movie_ids.push(the_movie.id)
+  #  end
+  #
+  #  matching_movies = Movie.where({ :id => array_of_movie_ids })
+  #
+  #  return matching_movies
+  #end
   #has_many(:filmography, { :class_name => "Character", :foreign_key => "actor_id" })
-  has_many(:characters, { :class_name => "Character", :foreign_key => "actor_id" })
+  has_many(:characters)
+  has_many(:filmography, { :through => :characters, :source => :movie })
 end
